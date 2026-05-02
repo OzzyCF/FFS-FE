@@ -2,9 +2,8 @@ import { createClient } from '@/lib/supabase/client'
 
 export async function signUp(email, nickname) {
   const supabase = createClient()
-  const { data, error } = await supabase.auth.signUp({
+  const { data, error } = await supabase.auth.signInWithOtp({
     email,
-    password: null,
     options: {
       emailRedirectTo: `${window.location.origin}/auth/callback`,
       data: { nickname },
