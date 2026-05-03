@@ -75,3 +75,74 @@ export async function getF1Data() {
 
   return { nextRace, driverStandings, constructorStandings, calendar }
 }
+
+export async function getCarrerasPageData() {
+  const BASE = 'https://api.jolpi.ca/ergast/f1/2026'
+  const now = new Date()
+
+  const [scheduleRes, driversRes, constructorsRes, openf1Res] = await Promise.all([
+    fetch(`${BASE}.json`, { next: { revalidate: 86400 } }),
+    fetch(`${BASE}/driverStandings.json`, { next: { revalidate: 43200 } }),
+    fetch(`${BASE}/constructorStandings.json`, { next: { revalidate: 43200 } }),
+    fetch('https://api.openf1.org/v1/sessions?year=2026', { next: { revalidate: 1800 } }),
+  ])
+
+  const [scheduleData, driversData, constructorsData, openf1Raw] = await Promise.all([
+    scheduleRes.json(),
+    driversRes.json(),
+    constructorsRes.json(),
+    openf1Res.ok ? openf1Res.json() : [],
+  ])
+
+  const races = scheduleData.MRData.RaceTable.Races
+
+  const nextRace = races.find(r =>
+    new Date(r.date + 'T' + (r.time ?? '23:59:59Z')) >= now
+  ) ?? races[races.length - 1]
+
+  const lastRace = [...races]
+    .reverse()
+    .find(r => new Date(r.date + 'T' + (r.time ?? '23:59:59Z')) < now) ?? null
+
+  const raceDate = new Date(nextRace.date)
+  const weekendStart = new Date(raceDate)
+  weekendStart.setDate(weekendStart.getDate() - 5)
+
+  const weekendSessions = Array.isArray(openf1Raw)
+    ? openf1Raw
+        .filter(s => {
+          const start = new Date(s.date_start)
+          return start >= weekendStart && start <= new Date(raceDate.getTime() + 86400000)
+        })
+        .sort((a, b) => new Date(a.date_start) - new Date(b.date_start))
+    : []
+
+  const driverStandings =
+    driversData.MRData?.StandingsTable?.StandingsLists?.[0]?.DriverStandings?.slice(0, 10) ?? []
+
+  const constructorStandings =
+    constructorsData.MRData?.StandingsTable?.StandingsLists?.[0]?.ConstructorStandings?.slice(0, 10) ?? []
+
+  return {
+    nextRace: {
+      name: nextRace.raceName,
+      circuit: nextRace.Circuit.circuitName,
+      country: nextRace.Circuit.Location.country,
+      locality: nextRace.Circuit.Location.locality,
+      date: nextRace.date,
+      time: nextRace.time ?? null,
+      round: nextRace.round,
+    },
+    lastRace: lastRace ? {
+      name: lastRace.raceName,
+      country: lastRace.Circuit.Location.country,
+      locality: lastRace.Circuit.Location.locality,
+      date: lastRace.date,
+      round: lastRace.round,
+    } : null,
+    weekendSessions,
+    driverStandings,
+    constructorStandings,
+    calendar: races,
+  }
+}

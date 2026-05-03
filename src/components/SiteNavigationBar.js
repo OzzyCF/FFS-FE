@@ -87,13 +87,13 @@ export default function Nav({ nickname }) {
           {/* Nav links */}
           <ul className="flex items-center gap-0 list-none">
             {[
-              { label: 'Próxima Carrera', id: 'proxima-carrera' },
-              { label: 'Eventos',         id: 'eventos' },
-              { label: 'Comunidad',       id: 'unete' },
-            ].map(({ label, id }, i, arr) => (
+              { label: 'Carreras', href: '/carreras' },
+              { label: 'Eventos',  id: 'eventos' },
+              { label: 'Comunidad', id: 'unete' },
+            ].map(({ label, id, href }, i, arr) => (
               <li key={label} className="flex items-center">
                 <button
-                  onClick={() => document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' })}
+                  onClick={() => href ? router.push(href) : document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' })}
                   className="text-white text-[13px] font-medium tracking-[0.8px] uppercase font-[family:var(--font-stack)] border-none bg-transparent cursor-pointer px-5 py-1"
                   onMouseEnter={e => {
                     e.currentTarget.style.transition = 'color 180ms, text-shadow 180ms'
