@@ -1,25 +1,61 @@
-import { createClient } from '@/lib/supabase/client'
+'use server'
 
-export async function signUp(email, nickname) {
-  const supabase = createClient()
-  const { data, error } = await supabase.auth.signInWithOtp({
+import { createClient } from '@/lib/supabase/server'
+import { redirect } from 'next/navigation'
+import { revalidatePath } from 'next/cache'
+
+export async function signUp(formData) {
+  const supabase = await createClient()
+  const email    = formData.get('email')
+  const nickname = formData.get('nickname')
+  const password = formData.get('password')
+
+  const { error } = await supabase.auth.signUp({
     email,
+    password: password || undefined,
     options: {
-      emailRedirectTo: `${window.location.origin}/auth/callback`,
       data: { nickname },
     },
   })
-  return { data, error }
+
+  if (error) return { error: error.message }
+  revalidatePath('/', 'layout')
+  return { success: true }
+}
+
+export async function signInWithPassword(formData) {
+  const supabase = await createClient()
+  const email    = formData.get('email')
+  const password = formData.get('password')
+
+  const { error } = await supabase.auth.signInWithPassword({
+    email,
+    password,
+  })
+
+  if (error) return { error: error.message }
+  revalidatePath('/', 'layout')
+  redirect('/')
+}
+
+export async function signInWithOtp(formData) {
+  const supabase = await createClient()
+  const email    = formData.get('email')
+
+  const { error } = await supabase.auth.signInWithOtp({
+    email,
+    options: {
+      shouldCreateUser: false,
+    },
+  })
+
+  if (error) return { error: error.message }
+  return { success: true }
 }
 
 export async function signOut() {
-  const supabase = createClient()
-  const { error } = await supabase.auth.signOut()
-  return { error }
-}
-
-export async function getSession() {
-  const supabase = createClient()
-  const { data: { session } } = await supabase.auth.getSession()
-  return session
+  const supabase = await createClient()
+  await supabase.auth.signOut()
+  revalidatePath('/', 'layout')
+  redirect('/')
 }

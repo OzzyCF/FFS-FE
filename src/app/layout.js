@@ -1,17 +1,11 @@
-import { Barlow_Condensed, Stack_Sans_Headline } from 'next/font/google'
+import { Barlow_Condensed } from 'next/font/google'
+import '@fontsource-variable/stack-sans-headline'
 import './globals.css'
 
 const barlowCondensed = Barlow_Condensed({
   subsets: ['latin'],
   weight: ['700', '800', '900'],
   variable: '--font-barlow-condensed',
-  display: 'swap',
-})
-
-const stackSans = Stack_Sans_Headline({
-  subsets: ['latin'],
-  weight: ['300', '400', '500', '600', '700'],
-  variable: '--font-stack',
   display: 'swap',
 })
 
@@ -22,7 +16,7 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="es" className={`${barlowCondensed.variable} ${stackSans.variable}`}>
+    <html lang="es" className={barlowCondensed.variable}>
       <body>{children}</body>
     </html>
   )

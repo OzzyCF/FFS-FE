@@ -1,8 +1,8 @@
-import Nav from '@/components/Nav'
+import NavServer from '@/components/NavServer'
 import Hero from '@/components/Hero'
 import RaceCard from '@/components/RaceCard'
 import EventCard from '@/components/EventCard'
-import JoinForm from '@/components/JoinForm'
+import AuthAwareJoinSection from '@/components/AuthAwareJoinSection'
 import Footer from '@/components/Footer'
 import { getF1Data } from '@/lib/f1api'
 import { createClient } from '@/lib/supabase/server'
@@ -78,7 +78,7 @@ export default async function Home() {
 
       {/* Page content */}
       <div className="relative z-[2] min-h-screen">
-        <Nav />
+        <NavServer />
         <Hero
           raceDays={raceDays > 0 ? raceDays : '—'}
           memberCount={memberCount ?? 0}
@@ -165,7 +165,7 @@ export default async function Home() {
 
         {/* Join section */}
         <section id="unete" className="px-7 pb-[60px] max-w-[680px] mx-auto">
-          <JoinForm />
+          <AuthAwareJoinSection />
         </section>
 
         <Footer />

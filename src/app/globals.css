@@ -15,9 +15,10 @@
   --color-faint: rgba(255, 255, 255, 0.26);
 
   /* Font families */
+  --font-stack: 'Stack Sans Headline Variable';
   --font-display: var(--font-barlow-condensed), sans-serif;
-  --font-body: var(--font-stack), sans-serif;
-  --font-ui: var(--font-stack), sans-serif;
+  --font-body: 'Stack Sans Headline Variable', sans-serif;
+  --font-ui: 'Stack Sans Headline Variable', sans-serif;
 
   /* Border radius */
   --radius-glass: 28px;

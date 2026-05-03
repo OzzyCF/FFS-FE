@@ -7,10 +7,11 @@ const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
 const NICK_RE  = /^[a-zA-Z0-9_]+$/
 
 export default function JoinForm() {
-  const [nickname, setNickname] = useState('')
-  const [email,    setEmail]    = useState('')
-  const [errors,   setErrors]   = useState({})
-  const [status,   setStatus]   = useState('idle') // idle | loading | success
+  const [nickname,  setNickname]  = useState('')
+  const [email,     setEmail]     = useState('')
+  const [password,  setPassword]  = useState('')
+  const [errors,    setErrors]    = useState({})
+  const [status,    setStatus]    = useState('idle') // idle | loading | success
   const [authError, setAuthError] = useState(null)
 
   function validate() {
@@ -28,9 +29,13 @@ export default function JoinForm() {
     if (Object.keys(e).length) { setErrors(e); return }
     setErrors({})
     setStatus('loading')
-    const { error } = await signUp(email, nickname)
-    if (error) {
-      setAuthError(error.message)
+    const formData = new FormData()
+    formData.set('email', email)
+    formData.set('nickname', nickname)
+    if (password) formData.set('password', password)
+    const result = await signUp(formData)
+    if (result?.error) {
+      setAuthError(result.error)
       setStatus('idle')
     } else {
       setStatus('success')
@@ -146,6 +151,31 @@ export default function JoinForm() {
               {errors.email}
             </span>
           )}
+        </div>
+
+        {/* Password (optional) */}
+        <div className="flex flex-col gap-1 text-left">
+          <label className="text-[12px] font-medium pl-1" style={{ color: 'rgba(255,255,255,0.45)', fontFamily: 'var(--font-body)' }}>
+            Contraseña (opcional)
+          </label>
+          <input
+            type="password"
+            placeholder="••••••••"
+            value={password}
+            onChange={e => setPassword(e.target.value)}
+            disabled={busy}
+            className="w-full px-5 py-[15px] rounded-btn text-[15px] text-white outline-none transition-all duration-200 border disabled:opacity-50"
+            style={{
+              background: 'rgba(255,255,255,0.045)',
+              borderColor: 'rgba(255,255,255,0.09)',
+              fontFamily: 'var(--font-body)',
+            }}
+            onFocus={e => { e.target.style.borderColor = 'rgba(0,196,125,0.44)'; e.target.style.background = 'rgba(0,196,125,0.035)' }}
+            onBlur={e  => { e.target.style.borderColor = 'rgba(255,255,255,0.09)'; e.target.style.background = 'rgba(255,255,255,0.045)' }}
+          />
+          <span className="text-[12px] pl-1" style={{ color: 'rgba(255,255,255,0.3)', fontFamily: 'var(--font-body)' }}>
+            Si no introduces contraseña usaremos magic link por email
+          </span>
         </div>
 
         {/* Submit */}
