@@ -92,7 +92,7 @@ export default function RaceCard({ race }) {
     <div
       className="rounded-glass border border-[var(--color-border)] relative overflow-hidden"
       style={{
-        background: 'rgba(255,255,255,0.07)',
+        background: 'rgba(6,7,10,0.65)',
         backdropFilter: 'blur(36px) saturate(200%)',
         WebkitBackdropFilter: 'blur(36px) saturate(200%)',
         padding: '44px 48px',
@@ -107,6 +107,16 @@ export default function RaceCard({ race }) {
       <div
         className="absolute inset-0 rounded-glass pointer-events-none"
         style={{ background: 'linear-gradient(140deg, rgba(255,255,255,0.06) 0%, transparent 55%)' }}
+      />
+
+      {/* White top bar */}
+      <div
+        className="absolute top-0 left-12 right-12 pointer-events-none"
+        style={{
+          height: 2,
+          background: 'linear-gradient(90deg, transparent, rgba(255,255,255,0.6), transparent)',
+          borderRadius: '0 0 2px 2px',
+        }}
       />
 
       {/* Race info */}

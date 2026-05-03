@@ -1,5 +1,8 @@
 'use client'
 
+import { LiquidButton } from '@/components/ui/LiquidGlassButton'
+import { MapPin } from 'lucide-react'
+
 export default function Hero({ raceDays = '—', memberCount = 0, eventCount = 0, isLoggedIn = false }) {
   return (
     <section
@@ -16,7 +19,7 @@ export default function Hero({ raceDays = '—', memberCount = 0, eventCount = 0
             animation: 'fadeUp 0.6s ease both',
           }}
         >
-          🏁 Sevilla · Andalucía · España
+          <MapPin size={13} strokeWidth={2} /> Sevilla · Andalucía · España
         </div>
 
         {/* Title */}
@@ -28,7 +31,12 @@ export default function Hero({ raceDays = '—', memberCount = 0, eventCount = 0
           }}
         >
           {/* FORMULA — pure white */}
-          <span className="block text-white">FORMULA</span>
+          <span
+            className="block text-white"
+            style={{ textShadow: '1px 1px 0 rgba(0,0,0,0.9), -1px -1px 0 rgba(0,0,0,0.6)' }}
+          >
+            FORMULA
+          </span>
 
           {/* FAN — metallic green */}
           <span
@@ -38,7 +46,7 @@ export default function Hero({ raceDays = '—', memberCount = 0, eventCount = 0
               WebkitBackgroundClip: 'text',
               WebkitTextFillColor: 'transparent',
               backgroundClip: 'text',
-              filter: 'drop-shadow(0 0 32px rgba(0,196,125,0.45))',
+              filter: 'drop-shadow(0 0 32px rgba(0,196,125,0.45)) drop-shadow(1px 1px 0 rgba(0,0,0,0.95))',
             }}
           >
             FAN
@@ -52,7 +60,7 @@ export default function Hero({ raceDays = '—', memberCount = 0, eventCount = 0
               WebkitBackgroundClip: 'text',
               WebkitTextFillColor: 'transparent',
               backgroundClip: 'text',
-              filter: 'drop-shadow(0 0 40px rgba(212,168,67,0.55))',
+              filter: 'drop-shadow(0 0 40px rgba(212,168,67,0.55)) drop-shadow(1px 1px 0 rgba(0,0,0,0.95))',
             }}
           >
             SEVILLA
@@ -73,29 +81,21 @@ export default function Hero({ raceDays = '—', memberCount = 0, eventCount = 0
           style={{ animation: 'fadeUp 0.7s 0.24s ease both' }}
         >
           {!isLoggedIn && (
-            <button
+            <LiquidButton
+              size="xl"
               onClick={() => document.getElementById('unete')?.scrollIntoView({ behavior: 'smooth' })}
-              className="text-white border-none px-[34px] py-[16px] rounded-btn font-semibold text-[15px] cursor-pointer tracking-[0.2px] transition-all duration-200 hover:-translate-y-[2px]"
-              style={{
-                background: 'linear-gradient(135deg, #00C47D 0%, #009B61 100%)',
-                boxShadow: '0 0 48px rgba(0,196,125,0.28)',
-              }}
-              onMouseEnter={e => e.currentTarget.style.boxShadow = '0 0 70px rgba(0,196,125,0.42)'}
-              onMouseLeave={e => e.currentTarget.style.boxShadow = '0 0 48px rgba(0,196,125,0.28)'}
+              className="text-white font-semibold tracking-[0.2px]"
             >
               Únete al club →
-            </button>
+            </LiquidButton>
           )}
-          <button
+          <LiquidButton
+            size="xl"
             onClick={() => document.getElementById('eventos')?.scrollIntoView({ behavior: 'smooth' })}
-            className="text-white px-[34px] py-[16px] rounded-btn font-medium text-[15px] cursor-pointer transition-all duration-200 border border-[var(--color-border-hi)] hover:bg-[rgba(255,255,255,0.11)] hover:border-[rgba(255,255,255,0.24)]"
-            style={{
-              background: 'rgba(255,255,255,0.07)',
-              backdropFilter: 'blur(20px)',
-            }}
+            className="text-white font-medium tracking-[0.2px]"
           >
             Ver próximos eventos
-          </button>
+          </LiquidButton>
         </div>
 
         {/* Stats */}

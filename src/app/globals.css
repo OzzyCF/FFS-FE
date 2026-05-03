@@ -28,6 +28,13 @@
 
   /* Backdrop blur */
   --blur-glass: 36px;
+
+  /* Background gradient animation */
+  --animate-first: moveVertical 120s linear infinite;
+  --animate-second: moveInCircle 80s linear reverse infinite;
+  --animate-third: moveInCircle 160s linear infinite;
+  --animate-fourth: moveHorizontal 160s linear infinite;
+  --animate-fifth: moveInCircle 80s linear infinite;
 }
 
 body {
@@ -44,5 +51,23 @@ input::placeholder {
 @keyframes fadeUp {
   from { opacity: 0; transform: translateY(28px); }
   to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes moveHorizontal {
+  0%   { transform: translateX(-50%) translateY(-10%); }
+  50%  { transform: translateX(50%) translateY(10%); }
+  100% { transform: translateX(-50%) translateY(-10%); }
+}
+
+@keyframes moveInCircle {
+  0%   { transform: rotate(0deg); }
+  50%  { transform: rotate(180deg); }
+  100% { transform: rotate(360deg); }
+}
+
+@keyframes moveVertical {
+  0%   { transform: translateY(-50%); }
+  50%  { transform: translateY(50%); }
+  100% { transform: translateY(-50%); }
 }
 

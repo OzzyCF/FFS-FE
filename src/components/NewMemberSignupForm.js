@@ -48,7 +48,7 @@ export default function JoinForm() {
       <div
         className="rounded-glass border border-[var(--color-border)] relative overflow-hidden text-center"
         style={{
-          background: 'rgba(255,255,255,0.07)',
+          background: 'rgba(6,7,10,0.65)',
           backdropFilter: 'blur(36px) saturate(200%)',
           WebkitBackdropFilter: 'blur(36px) saturate(200%)',
           padding: '56px 52px',
@@ -74,7 +74,7 @@ export default function JoinForm() {
     <div
       className="rounded-glass border border-[var(--color-border)] relative overflow-hidden text-center"
       style={{
-        background: 'rgba(255,255,255,0.07)',
+        background: 'rgba(6,7,10,0.65)',
         backdropFilter: 'blur(36px) saturate(200%)',
         WebkitBackdropFilter: 'blur(36px) saturate(200%)',
         padding: '56px 52px',
@@ -113,7 +113,7 @@ export default function JoinForm() {
             value={nickname}
             onChange={e => { setNickname(e.target.value); setErrors(v => ({ ...v, nickname: null })) }}
             disabled={busy}
-            className="w-full px-5 py-[15px] rounded-btn text-[15px] text-white outline-none transition-all duration-200 border disabled:opacity-50"
+            className="w-full px-5 py-[15px] rounded-btn text-[15px] text-white outline-none transition-all duration-200 border disabled:opacity-50 placeholder:text-white/50"
             style={{
               background: errors.nickname ? 'rgba(255,80,80,0.04)' : 'rgba(255,255,255,0.045)',
               borderColor: errors.nickname ? 'rgba(255,100,100,0.5)' : 'rgba(255,255,255,0.09)',
@@ -182,7 +182,7 @@ export default function JoinForm() {
         <button
           type="submit"
           disabled={busy}
-          className="w-full text-white border-none py-[17px] px-8 rounded-btn font-bold text-[16px] cursor-pointer tracking-[0.3px] transition-all duration-200 hover:-translate-y-[2px] disabled:opacity-60 disabled:cursor-not-allowed disabled:translate-y-0"
+          className="w-full text-white border-none py-[17px] px-8 rounded-full font-bold text-[16px] cursor-pointer tracking-[0.3px] transition-all duration-200 hover:-translate-y-[2px] disabled:opacity-60 disabled:cursor-not-allowed disabled:translate-y-0"
           style={{
             background: 'linear-gradient(135deg, #00C47D 0%, #009B61 100%)',
             boxShadow: '0 0 48px rgba(0,196,125,0.28)',

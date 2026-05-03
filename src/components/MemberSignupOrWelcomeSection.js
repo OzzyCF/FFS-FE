@@ -19,7 +19,7 @@ export default async function AuthAwareJoinSection() {
     <div
       className="rounded-glass border border-[var(--color-border)] relative overflow-hidden text-center"
       style={{
-        background: 'rgba(255,255,255,0.07)',
+        background: 'rgba(6,7,10,0.65)',
         backdropFilter: 'blur(36px) saturate(200%)',
         WebkitBackdropFilter: 'blur(36px) saturate(200%)',
         padding: '56px 52px',

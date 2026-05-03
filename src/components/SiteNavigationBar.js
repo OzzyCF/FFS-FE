@@ -3,6 +3,7 @@
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { signInWithPassword, signInWithOtp, signOut } from '@/lib/memberAuthActions'
+import { UserPlus } from 'lucide-react'
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
 
@@ -69,7 +70,7 @@ export default function Nav({ nickname }) {
     <>
       <nav className="sticky top-[14px] z-[100] px-7 max-w-[1180px] mx-auto mt-[14px]">
         <div
-          className="flex items-center justify-between px-[22px] py-[13px] rounded-[18px] border border-[var(--color-border)]"
+          className="flex items-center justify-between px-[22px] py-[13px] rounded-full border border-[var(--color-border)]"
           style={{
             background: 'rgba(6,7,10,0.72)',
             backdropFilter: 'blur(44px) saturate(200%)',
@@ -77,32 +78,39 @@ export default function Nav({ nickname }) {
           }}
         >
           {/* Logo */}
-          <div
-            className="font-black text-[20px] tracking-[-0.3px] font-[family:var(--font-stack)]"
-            style={{
-              background: 'linear-gradient(120deg, #00C47D 0%, #D4A843 100%)',
-              WebkitBackgroundClip: 'text',
-              WebkitTextFillColor: 'transparent',
-              backgroundClip: 'text',
-            }}
-          >
-            Formula Fan Sevilla
-          </div>
+          <img
+            src="/images/logo-ffs.svg"
+            alt="Formula Fan Sevilla"
+            className="h-8 w-auto"
+          />
 
           {/* Nav links */}
-          <ul className="flex gap-7 list-none">
+          <ul className="flex items-center gap-0 list-none">
             {[
               { label: 'Próxima Carrera', id: 'proxima-carrera' },
               { label: 'Eventos',         id: 'eventos' },
               { label: 'Comunidad',       id: 'unete' },
-            ].map(({ label, id }) => (
-              <li key={label}>
+            ].map(({ label, id }, i, arr) => (
+              <li key={label} className="flex items-center">
                 <button
                   onClick={() => document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' })}
-                  className="text-[var(--color-dim)] text-[13px] font-medium tracking-[0.8px] uppercase transition-colors duration-[180ms] hover:text-white font-[family:var(--font-stack)] border-none bg-transparent cursor-pointer p-0"
+                  className="text-white text-[13px] font-medium tracking-[0.8px] uppercase font-[family:var(--font-stack)] border-none bg-transparent cursor-pointer px-5 py-1"
+                  onMouseEnter={e => {
+                    e.currentTarget.style.transition = 'color 180ms, text-shadow 180ms'
+                    e.currentTarget.style.color = '#00C47D'
+                    e.currentTarget.style.textShadow = '0 0 12px rgba(0,196,125,0.7)'
+                  }}
+                  onMouseLeave={e => {
+                    e.currentTarget.style.transition = 'color 1000ms, text-shadow 1000ms'
+                    e.currentTarget.style.color = 'white'
+                    e.currentTarget.style.textShadow = 'none'
+                  }}
                 >
                   {label}
                 </button>
+                {i < arr.length - 1 && (
+                  <span style={{ color: 'rgba(255,255,255,0.2)', fontSize: 14, userSelect: 'none' }}>|</span>
+                )}
               </li>
             ))}
           </ul>
@@ -145,10 +153,11 @@ export default function Nav({ nickname }) {
               </button>
               <button
                 onClick={() => document.getElementById('unete')?.scrollIntoView({ behavior: 'smooth' })}
-                className="text-white border-none px-[22px] py-[9px] rounded-[10px] font-semibold text-[13px] cursor-pointer tracking-[0.2px] transition-all duration-[180ms] hover:opacity-[0.88] hover:-translate-y-px font-[family:var(--font-stack)]"
+                className="flex items-center gap-[7px] text-white border-none px-[22px] py-[9px] rounded-full font-semibold text-[13px] cursor-pointer tracking-[0.2px] transition-all duration-[180ms] hover:opacity-[0.88] hover:-translate-y-px font-[family:var(--font-stack)]"
                 style={{ background: 'linear-gradient(135deg, #00C47D 0%, #009B61 100%)' }}
               >
-                Únete →
+                Únete
+                <UserPlus size={14} strokeWidth={2.5} />
               </button>
             </div>
           )}
@@ -268,7 +277,7 @@ export default function Nav({ nickname }) {
                   <button
                     type="submit"
                     disabled={modalStatus === 'loading'}
-                    className="w-full text-white border-none py-[15px] px-8 rounded-btn font-bold text-[15px] cursor-pointer tracking-[0.3px] transition-all duration-200 hover:-translate-y-[2px] disabled:opacity-60 disabled:cursor-not-allowed disabled:translate-y-0"
+                    className="w-full text-white border-none py-[15px] px-8 rounded-full font-bold text-[15px] cursor-pointer tracking-[0.3px] transition-all duration-200 hover:-translate-y-[2px] disabled:opacity-60 disabled:cursor-not-allowed disabled:translate-y-0"
                     style={{
                       background: 'linear-gradient(135deg, #00C47D 0%, #009B61 100%)',
                       boxShadow: '0 0 48px rgba(0,196,125,0.25)',

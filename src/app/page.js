@@ -1,3 +1,4 @@
+import { BackgroundGradientAnimation } from '@/components/ui/BackgroundGradientAnimation'
 import NavServer from '@/components/SiteNavigationBarWithAuth'
 import Hero from '@/components/ClubHeroSection'
 import RaceCard from '@/components/NextRaceCountdownCard'
@@ -45,50 +46,22 @@ export default async function Home() {
     ? await supabase.from('event_interest').select('status').eq('event_id', nextEvent.id).eq('user_id', user.id).single()
     : { data: null }
 
+  const { data: profileData } = user
+    ? await supabase.from('profiles').select('nickname').eq('id', user.id).single()
+    : { data: null }
+  const nickname = profileData?.nickname ?? null
+
+  const { data: recentMembers } = await supabase
+    .from('profiles')
+    .select('id, nickname, created_at')
+    .order('created_at', { ascending: false })
+    .limit(8)
+
   return (
     <>
-      {/* Background atmosphere — fixed blobs */}
+      {/* Background gradient animation */}
       <div className="fixed inset-0 z-0 pointer-events-none overflow-hidden">
-        {/* b1 — green, top-left */}
-        <div
-          className="absolute rounded-full"
-          style={{
-            width: 780, height: 780,
-            background: 'radial-gradient(circle, rgba(0,196,125,0.38) 0%, transparent 68%)',
-            filter: 'blur(110px)',
-            top: -280, left: -180,
-          }}
-        />
-        {/* b2 — gold, top-right */}
-        <div
-          className="absolute rounded-full"
-          style={{
-            width: 620, height: 620,
-            background: 'radial-gradient(circle, rgba(212,168,67,0.32) 0%, transparent 68%)',
-            filter: 'blur(110px)',
-            top: -140, right: -200,
-          }}
-        />
-        {/* b3 — green small, bottom-right */}
-        <div
-          className="absolute rounded-full"
-          style={{
-            width: 440, height: 440,
-            background: 'radial-gradient(circle, rgba(0,196,125,0.18) 0%, transparent 68%)',
-            filter: 'blur(110px)',
-            bottom: '15%', right: '8%',
-          }}
-        />
-        {/* b4 — gold small, bottom-left */}
-        <div
-          className="absolute rounded-full"
-          style={{
-            width: 360, height: 360,
-            background: 'radial-gradient(circle, rgba(212,168,67,0.14) 0%, transparent 68%)',
-            filter: 'blur(110px)',
-            bottom: '10%', left: '5%',
-          }}
-        />
+        <BackgroundGradientAnimation interactive={false} />
       </div>
 
       {/* Grain overlay */}
@@ -141,7 +114,7 @@ export default async function Home() {
               userRsvp={userRsvpData?.status ?? null}
               isLoggedIn={isLoggedIn}
             />
-          <ClientCommunityCard />
+          <ClientCommunityCard isLoggedIn={isLoggedIn} nickname={nickname} members={recentMembers ?? []} />
         </div>
 
         {/* Divider */}

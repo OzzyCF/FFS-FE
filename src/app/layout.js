@@ -12,6 +12,9 @@ const barlowCondensed = Barlow_Condensed({
 export const metadata = {
   title: 'Formula Fan Sevilla',
   description: 'La comunidad de motorsport de Sevilla — seguimos cada carrera juntos.',
+  icons: {
+    icon: '/images/logo-ffs.svg',
+  },
 }
 
 export default function RootLayout({ children }) {

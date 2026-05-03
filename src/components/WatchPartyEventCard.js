@@ -2,6 +2,8 @@
 
 import { useState } from 'react'
 import { rsvpToEvent, cancelRsvp } from '@/lib/eventActions'
+import { LiquidButton } from '@/components/ui/LiquidGlassButton'
+import { MapPin, Calendar, Check, HelpCircle } from 'lucide-react'
 
 export default function WatchPartyEventCard({ event, goingCount = 0, maybeCount = 0, userRsvp = null, isLoggedIn = false }) {
   const [localRsvp, setLocalRsvp] = useState(userRsvp)
@@ -52,7 +54,7 @@ export default function WatchPartyEventCard({ event, goingCount = 0, maybeCount 
       <div
         className="rounded-glass border border-[var(--color-border)] relative overflow-hidden p-9"
         style={{
-          background: 'rgba(255,255,255,0.07)',
+          background: 'rgba(6,7,10,0.65)',
           backdropFilter: 'blur(36px) saturate(200%)',
           WebkitBackdropFilter: 'blur(36px) saturate(200%)',
           animation: 'fadeUp 0.7s 0.2s ease both',
@@ -84,7 +86,7 @@ export default function WatchPartyEventCard({ event, goingCount = 0, maybeCount 
     <div
       className="rounded-glass border border-[var(--color-border)] relative overflow-hidden p-9"
       style={{
-        background: 'rgba(255,255,255,0.07)',
+        background: 'rgba(6,7,10,0.65)',
         backdropFilter: 'blur(36px) saturate(200%)',
         WebkitBackdropFilter: 'blur(36px) saturate(200%)',
         animation: 'fadeUp 0.7s 0.2s ease both',
@@ -93,6 +95,16 @@ export default function WatchPartyEventCard({ event, goingCount = 0, maybeCount 
       {/* Inner highlight shimmer */}
       <div className="absolute inset-0 rounded-glass pointer-events-none"
         style={{ background: 'linear-gradient(140deg, rgba(255,255,255,0.06) 0%, transparent 55%)' }} />
+
+      {/* Green top bar */}
+      <div
+        className="absolute top-0 left-12 right-12 pointer-events-none"
+        style={{
+          height: 2,
+          background: 'linear-gradient(90deg, transparent, #00C47D, transparent)',
+          borderRadius: '0 0 2px 2px',
+        }}
+      />
 
       {/* Badge */}
       <div
@@ -108,36 +120,38 @@ export default function WatchPartyEventCard({ event, goingCount = 0, maybeCount 
       </div>
 
       {/* Meta */}
-      <div className="text-[var(--color-dim)] text-[14px] leading-[1.7] mb-7 font-light">
-        📍 {event.venue_name} · {event.venue_address}<br />
-        📅 {dateStr} · {timeStr}
+      <div className="text-[var(--color-dim)] text-[14px] leading-[1.7] mb-7 font-light flex flex-col gap-[5px]">
+        <span className="flex items-center gap-[7px]">
+          <MapPin size={14} className="flex-shrink-0" />
+          {event.venue_name} · {event.venue_address}
+        </span>
+        <span className="flex items-center gap-[7px]">
+          <Calendar size={14} className="flex-shrink-0" />
+          {dateStr} · {timeStr}
+        </span>
       </div>
 
       {/* RSVP */}
       {isLoggedIn ? (
         <div className="flex gap-[10px] mb-4">
-          <button
+          <LiquidButton
+            size="lg"
+            tint={localRsvp === 'going' ? 'green' : undefined}
             onClick={() => handleRsvp('going')}
             disabled={loading}
-            className="px-[22px] py-[10px] rounded-[10px] font-semibold text-[13px] text-white border cursor-pointer tracking-[0.2px] transition-all duration-[180ms] disabled:opacity-50 disabled:cursor-not-allowed"
-            style={{
-              background: localRsvp === 'going' ? 'rgba(0,196,125,0.2)' : '#00C47D',
-              borderColor: localRsvp === 'going' ? '#00C47D' : 'transparent',
-            }}
+            className="text-white font-semibold tracking-[0.2px] disabled:opacity-50 disabled:cursor-not-allowed"
           >
-            ✓&nbsp; Voy
-          </button>
-          <button
+            <Check size={14} strokeWidth={2.5} /> Voy
+          </LiquidButton>
+          <LiquidButton
+            size="lg"
+            tint={localRsvp === 'maybe' ? 'green' : undefined}
             onClick={() => handleRsvp('maybe')}
             disabled={loading}
-            className="px-[22px] py-[10px] rounded-[10px] font-semibold text-[13px] text-white cursor-pointer tracking-[0.2px] transition-all duration-[180ms] border disabled:opacity-50 disabled:cursor-not-allowed"
-            style={{
-              background: localRsvp === 'maybe' ? 'rgba(255,255,255,0.15)' : 'rgba(255,255,255,0.07)',
-              borderColor: localRsvp === 'maybe' ? 'rgba(255,255,255,0.4)' : 'rgba(255,255,255,0.16)',
-            }}
+            className="text-white font-semibold tracking-[0.2px] disabled:opacity-50 disabled:cursor-not-allowed"
           >
-            ?&nbsp; Quizás
-          </button>
+            <HelpCircle size={14} strokeWidth={2.5} /> Quizás
+          </LiquidButton>
         </div>
       ) : (
         <p className="text-[13px] mb-4" style={{ color: 'rgba(255,255,255,0.35)' }}>
