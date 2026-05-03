@@ -94,8 +94,8 @@ export default async function Home() {
         <div id="proxima-carrera" className="relative z-[2]">
           <div className="px-7 pb-6 max-w-[1180px] xl:max-w-[1400px] 2xl:max-w-[1600px] mx-auto">
             <div className="flex items-center gap-3 mb-6">
-              <span className="font-mono text-[var(--color-green)] text-[15px] font-bold leading-none">{'//'}</span>
-              <span className="font-display font-black text-white uppercase tracking-[4px] text-[13px]">Próximo evento</span>
+              <span className="font-mono text-[var(--color-green)] text-[22px] font-bold leading-none">{'//'}</span>
+              <span className="font-display font-black text-white uppercase tracking-[6px] text-[20px]">Próximo evento</span>
             </div>
             <RaceCard race={f1Data.nextRace} />
           </div>

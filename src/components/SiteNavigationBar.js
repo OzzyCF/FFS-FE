@@ -96,7 +96,7 @@ export default function Nav({ nickname }) {
               <li key={label} className="flex items-center">
                 <button
                   onClick={() => router.push(href)}
-                  className="text-white text-[13px] font-medium tracking-[0.8px] uppercase font-[family:var(--font-stack)] border-none bg-transparent cursor-pointer px-5 py-1"
+                  className="text-white text-[22px] font-black tracking-[4px] uppercase font-display border-none bg-transparent cursor-pointer px-5 py-1"
                   onMouseEnter={e => {
                     e.currentTarget.style.transition = 'color 180ms, text-shadow 180ms'
                     e.currentTarget.style.color = '#00C47D'
@@ -241,7 +241,7 @@ export default function Nav({ nickname }) {
               <button
                 key={label}
                 onClick={() => { setMenuOpen(false); router.push(href) }}
-                className="w-full text-left px-6 py-[17px] text-white text-[15px] font-semibold uppercase tracking-[1px] border-none bg-transparent cursor-pointer border-b border-[var(--color-border)] font-[family:var(--font-stack)]"
+                className="w-full text-left px-6 py-[17px] text-white text-[28px] font-black uppercase tracking-[4px] border-none bg-transparent cursor-pointer font-display"
                 style={{ borderBottom: '1px solid rgba(255,255,255,0.06)' }}
                 onMouseEnter={e => e.currentTarget.style.background = 'rgba(255,255,255,0.03)'}
                 onMouseLeave={e => e.currentTarget.style.background = 'transparent'}

@@ -4,7 +4,7 @@ import { Coffee } from 'lucide-react'
 
 export default function Footer() {
   return (
-    <footer className="relative z-[2] border-t border-[var(--color-border)] px-7 py-7 max-w-[1180px] xl:max-w-[1400px] 2xl:max-w-[1600px] mx-auto flex flex-col items-center gap-5 text-center md:flex-row md:justify-between md:text-left">
+    <footer className="relative z-[2] border-t border-[var(--color-border)] px-7 py-7 max-w-[1180px] xl:max-w-[1400px] 2xl:max-w-[1600px] mx-auto flex flex-col items-center gap-5 text-center md:grid md:grid-cols-[1fr_auto_1fr] md:items-center md:gap-0 md:text-left">
       <img
         src="/images/logo-ffs.svg"
         alt="Formula Fan Sevilla"
@@ -40,8 +40,8 @@ export default function Footer() {
         Apoya el club con un cafelito
       </a>
 
-      <div className="text-[12px] text-[var(--color-faint)] tracking-[0.3px] font-[family:var(--font-stack)]">
-        Hecho con ❤️ en Sevilla · formulafansevilla.com · 2026
+      <div className="text-[12px] text-white tracking-[0.3px] font-[family:var(--font-stack)] md:text-right">
+        Hecho con ❤️ en Sevilla · formulafansevilla.com · 2026<br />Dev by Oswaldo Colon Freites
       </div>
     </footer>
   )

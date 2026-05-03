@@ -37,7 +37,7 @@ export default function LastRaceResultCard({ lastRace }) {
           borderColor: 'rgba(212,168,67,0.2)',
         }}
       >
-        Última carrera · Ronda {lastRace.round}
+        Carrera anterior · Ronda {lastRace.round}
       </div>
 
       <div className="flex items-center gap-4">

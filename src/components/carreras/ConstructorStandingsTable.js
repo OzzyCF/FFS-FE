@@ -15,7 +15,7 @@ export default function ConstructorStandingsTable({ standings }) {
       <div style={{ padding: '28px 32px' }}>
         <div className="text-[11px] font-bold uppercase tracking-[2px] mb-5"
           style={{ color: 'var(--color-gold)' }}>
-          Clasificación Constructores
+          Clasificación de Constructores
         </div>
 
         <div className="flex flex-col">

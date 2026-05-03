@@ -14,7 +14,7 @@ export default function DriverStandingsTable({ standings }) {
 
       <div style={{ padding: '28px 32px' }}>
         <div className="text-[11px] font-bold uppercase tracking-[2px] text-[var(--color-green)] mb-5">
-          Clasificación Pilotos
+          Clasificación de Pilotos
         </div>
 
         <div className="flex flex-col">
