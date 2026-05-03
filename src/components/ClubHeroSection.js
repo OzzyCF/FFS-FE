@@ -1,15 +1,99 @@
 'use client'
 
+import { useEffect, useRef, useState } from 'react'
 import { LiquidButton } from '@/components/ui/LiquidGlassButton'
 import { MapPin } from 'lucide-react'
 
 export default function Hero({ raceDays = '—', memberCount = 0, eventCount = 0, isLoggedIn = false }) {
+  const parallaxRef = useRef(null)
+  const [activeIdx, setActiveIdx] = useState(0)
+
+  const images = [
+    { src: '/images/drivers-26-facing-right.webp', pos: 'center top' },
+    { src: '/images/4-cars-2026.webp',             pos: 'center center' },
+    { src: '/images/vertical-cars-stack.jpg',      pos: 'center center' },
+  ]
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setActiveIdx(prev => (prev + 1) % images.length)
+    }, 30000)
+    return () => clearInterval(interval)
+  }, [])
+
+  useEffect(() => {
+    function handleScroll() {
+      if (parallaxRef.current) {
+        parallaxRef.current.style.transform = `translateY(${window.scrollY * -0.15}px)`
+      }
+    }
+    window.addEventListener('scroll', handleScroll, { passive: true })
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
+
   return (
     <section
-      className="flex items-center px-7 pt-[100px] pb-[80px] max-w-[1180px] mx-auto relative z-[2]"
-      style={{ minHeight: '88vh' }}
+      className="relative z-[2]"
+      style={{ minHeight: '88vh', overflow: 'hidden' }}
     >
-      <div>
+
+      {/* ── Hero image — right half, diagonal left edge, full viewport width, desktop only */}
+      <div
+        className="hidden md:block"
+        style={{
+          position: 'absolute',
+          right: 0,
+          top: 0,
+          bottom: 0,
+          width: '50%',
+          zIndex: 0,
+          clipPath: 'polygon(18% 0%, 100% 0%, 100% 100%, 0% 100%)',
+          overflow: 'hidden',
+          maskImage: 'linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.8) 30%, rgba(0,0,0,0.8) 70%, transparent 100%)',
+          WebkitMaskImage: 'linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.8) 30%, rgba(0,0,0,0.8) 70%, transparent 100%)',
+        }}
+      >
+        <div
+          ref={parallaxRef}
+          style={{ position: 'absolute', inset: 0, width: '100%', height: '150%', top: '-25%' }}
+        >
+          {images.map((img, i) => (
+            <img
+              key={img.src}
+              src={img.src}
+              alt=""
+              style={{
+                position: 'absolute',
+                inset: 0,
+                width: '100%',
+                height: '100%',
+                objectFit: 'cover',
+                objectPosition: img.pos,
+                opacity: i === activeIdx ? 1 : 0,
+                transition: 'opacity 5s ease-in-out',
+              }}
+            />
+          ))}
+        </div>
+        {/* Dark overlay */}
+        <div style={{ position: 'absolute', inset: 0, background: 'rgba(0,0,0,0.35)' }} />
+        {/* Left fade */}
+        <div style={{
+          position: 'absolute',
+          left: 0, top: 0, bottom: 0,
+          width: '220px',
+          background: 'linear-gradient(to right, #06070A 0%, transparent 100%)',
+          zIndex: 1,
+          pointerEvents: 'none',
+        }} />
+      </div>
+
+      {/* ── Text content — centered, max-width, z-index 10 */}
+      <div
+        className="flex items-center px-7 pt-[100px] pb-[80px] max-w-[1180px] mx-auto"
+        style={{ minHeight: '88vh' }}
+      >
+      <div style={{ position: 'relative', zIndex: 10 }}>
         {/* Eyebrow */}
         <div
           className="inline-flex items-center gap-2 px-[15px] py-[5px] rounded-[100px] text-[var(--color-green)] text-[12px] font-semibold tracking-[2px] uppercase mb-9 border"
@@ -30,15 +114,12 @@ export default function Hero({ raceDays = '—', memberCount = 0, eventCount = 0
             animation: 'fadeUp 0.7s 0.08s ease both',
           }}
         >
-          {/* FORMULA — pure white */}
           <span
             className="block text-white"
             style={{ textShadow: '1px 1px 0 rgba(0,0,0,0.9), -1px -1px 0 rgba(0,0,0,0.6)' }}
           >
             FORMULA
           </span>
-
-          {/* FAN — metallic green */}
           <span
             className="block"
             style={{
@@ -51,8 +132,6 @@ export default function Hero({ raceDays = '—', memberCount = 0, eventCount = 0
           >
             FAN
           </span>
-
-          {/* SEVILLA — metallic gold */}
           <span
             className="block"
             style={{
@@ -106,8 +185,8 @@ export default function Hero({ raceDays = '—', memberCount = 0, eventCount = 0
           {[
             { value: memberCount, label: 'Miembros' },
             { value: eventCount,  label: 'Eventos' },
-            { value: raceDays, label: 'Días para la próxima carrera' },
-          ].map((stat, i, arr) => (
+            { value: raceDays,    label: 'Días para la próxima carrera' },
+          ].map((stat) => (
             <div
               key={stat.label}
               className="pr-9 mr-9 border-r border-[var(--color-border)] last:border-r-0 last:mr-0 last:pr-0"
@@ -122,6 +201,8 @@ export default function Hero({ raceDays = '—', memberCount = 0, eventCount = 0
           ))}
         </div>
       </div>
+      </div>
+
     </section>
   )
 }
