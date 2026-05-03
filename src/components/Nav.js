@@ -1,16 +1,19 @@
 'use client'
 
 import { useState } from 'react'
+import { useRouter } from 'next/navigation'
 import { signInWithPassword, signInWithOtp, signOut } from '@/lib/auth'
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
 
 export default function Nav({ nickname }) {
-  const [modalOpen,     setModalOpen]     = useState(false)
-  const [modalEmail,    setModalEmail]    = useState('')
-  const [modalPassword, setModalPassword] = useState('')
-  const [modalStatus,   setModalStatus]   = useState('idle') // idle | loading | success
-  const [modalError,    setModalError]    = useState(null)
+  const router = useRouter()
+  const [modalOpen,      setModalOpen]      = useState(false)
+  const [modalEmail,     setModalEmail]     = useState('')
+  const [modalPassword,  setModalPassword]  = useState('')
+  const [modalStatus,    setModalStatus]    = useState('idle') // idle | loading | success
+  const [modalError,     setModalError]     = useState(null)
+  const [loginType,      setLoginType]      = useState(null)  // 'password' | 'otp'
 
   async function handleSignOut() {
     await signOut()
@@ -22,6 +25,7 @@ export default function Nav({ nickname }) {
     setModalPassword('')
     setModalStatus('idle')
     setModalError(null)
+    setLoginType(null)
   }
 
   async function handleModalSubmit(e) {
@@ -33,29 +37,31 @@ export default function Nav({ nickname }) {
     setModalError(null)
     setModalStatus('loading')
 
-    try {
+    if (modalPassword) {
       const formData = new FormData()
-      formData.set('email', modalEmail)
-
-      let result
-      if (modalPassword) {
-        formData.set('password', modalPassword)
-        result = await signInWithPassword(formData)
-      } else {
-        result = await signInWithOtp(formData)
-      }
-
+      formData.append('email', modalEmail)
+      formData.append('password', modalPassword)
+      const result = await signInWithPassword(formData)
       if (result?.error) {
         setModalError(result.error)
         setModalStatus('idle')
       } else {
+        setLoginType('password')
+        setModalStatus('success')
+        router.refresh()
+        setTimeout(closeModal, 1500)
+      }
+    } else {
+      const formData = new FormData()
+      formData.append('email', modalEmail)
+      const result = await signInWithOtp(formData)
+      if (result?.error) {
+        setModalError(result.error)
+        setModalStatus('idle')
+      } else {
+        setLoginType('otp')
         setModalStatus('success')
       }
-    } catch (err) {
-      // Let Next.js redirect errors propagate
-      if (err?.digest?.startsWith('NEXT_REDIRECT')) throw err
-      setModalError('Error inesperado. Inténtalo de nuevo.')
-      setModalStatus('idle')
     }
   }
 
@@ -181,13 +187,27 @@ export default function Nav({ nickname }) {
 
             {modalStatus === 'success' ? (
               <div className="text-center">
-                <div className="text-[44px] mb-5">📬</div>
-                <div className="font-display font-black text-[30px] uppercase leading-[1] mb-3 tracking-[-0.5px]">
-                  ¡Revisa tu email!
-                </div>
-                <p className="text-[var(--color-dim)] text-[14px] leading-[1.65] font-light max-w-[280px] mx-auto">
-                  Te hemos enviado un enlace para acceder al paddock.
-                </p>
+                {loginType === 'password' ? (
+                  <>
+                    <div className="text-[44px] mb-5">✅</div>
+                    <div className="font-display font-black text-[30px] uppercase leading-[1] mb-3 tracking-[-0.5px]">
+                      ¡Bienvenido!
+                    </div>
+                    <p className="text-[var(--color-dim)] text-[14px] leading-[1.65] font-light max-w-[280px] mx-auto">
+                      Sesión iniciada correctamente.
+                    </p>
+                  </>
+                ) : (
+                  <>
+                    <div className="text-[44px] mb-5">📬</div>
+                    <div className="font-display font-black text-[30px] uppercase leading-[1] mb-3 tracking-[-0.5px]">
+                      ¡Revisa tu email!
+                    </div>
+                    <p className="text-[var(--color-dim)] text-[14px] leading-[1.65] font-light max-w-[280px] mx-auto">
+                      Te hemos enviado un enlace para acceder al paddock.
+                    </p>
+                  </>
+                )}
               </div>
             ) : (
               <>

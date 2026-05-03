@@ -35,7 +35,7 @@ export async function signInWithPassword(formData) {
 
   if (error) return { error: error.message }
   revalidatePath('/', 'layout')
-  redirect('/')
+  return { success: true }
 }
 
 export async function signInWithOtp(formData) {
