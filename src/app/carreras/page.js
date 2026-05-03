@@ -33,7 +33,7 @@ export default async function CarrerasPage() {
 
       <CarrerasHeader />
 
-    <main className="relative z-[2] max-w-[1180px] mx-auto px-7 pt-8 pb-[80px]">
+    <main className="relative z-[2] max-w-[1180px] xl:max-w-[1400px] 2xl:max-w-[1600px] mx-auto px-7 pt-8 pb-[80px]">
       {/* Hero — next race + countdown */}
       <div className="mb-6">
         <CarrerasHeroSection nextRace={nextRace} />

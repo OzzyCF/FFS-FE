@@ -65,7 +65,7 @@ export default async function EventosPage() {
       <div className="relative z-[2] min-h-screen">
         <EventosHeader />
 
-        <main className="relative z-[2] max-w-[1180px] mx-auto px-7 pt-8 pb-[80px]">
+        <main className="relative z-[2] max-w-[1180px] xl:max-w-[1400px] 2xl:max-w-[1600px] mx-auto px-7 pt-8 pb-[80px]">
 
           {!featuredEvent ? (
             // Empty state

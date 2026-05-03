@@ -90,7 +90,7 @@ export default function Hero({ raceDays = '—', memberCount = 0, eventCount = 0
 
       {/* ── Text content — centered, max-width, z-index 10 */}
       <div
-        className="flex items-center px-7 pt-[80px] md:pt-[100px] pb-[80px] max-w-[1180px] mx-auto"
+        className="flex items-center px-7 pt-[80px] md:pt-[100px] pb-[80px] max-w-[1180px] xl:max-w-[1400px] 2xl:max-w-[1600px] mx-auto"
         style={{ minHeight: '88vh' }}
       >
       <div style={{ position: 'relative', zIndex: 10 }}>

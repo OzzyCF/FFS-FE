@@ -76,7 +76,7 @@ export default function Nav({ nickname }) {
 
   return (
     <>
-      <nav className="sticky top-[14px] z-[100] px-5 md:px-7 max-w-[1180px] mx-auto mt-[14px] relative">
+      <nav className="sticky top-[14px] z-[100] px-5 md:px-7 max-w-[1180px] xl:max-w-[1400px] 2xl:max-w-[1600px] mx-auto mt-[14px] relative">
 
         {/* ── DESKTOP NAV ── */}
         <div
