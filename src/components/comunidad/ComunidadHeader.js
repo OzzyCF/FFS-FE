@@ -16,8 +16,8 @@ export default function ComunidadHeader() {
         />
 
         <span
-          className="font-display font-black text-white uppercase leading-none"
-          style={{ fontSize: 52, letterSpacing: '0.52em' }}
+          className="font-display font-black text-white uppercase leading-none tracking-[0.15em] md:tracking-[0.52em]"
+          style={{ fontSize: 'clamp(20px, 7vw, 52px)' }}
         >
           COMUNIDAD
         </span>

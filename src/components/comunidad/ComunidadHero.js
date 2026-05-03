@@ -15,8 +15,8 @@ const BARRIOS = [
 export default function ComunidadHero({ memberCount = 0 }) {
   return (
     <div
-      className="mb-10 relative overflow-hidden"
-      style={{ minHeight: '460px', animation: 'fadeUp 0.7s 0.05s ease both' }}
+      className="mb-4 md:mb-10 relative overflow-hidden md:min-h-[460px]"
+      style={{ animation: 'fadeUp 0.7s 0.05s ease both' }}
     >
 
       {/* Radar — absolute background, right 70%, desktop only */}

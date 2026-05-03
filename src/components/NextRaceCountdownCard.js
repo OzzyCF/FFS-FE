@@ -90,16 +90,11 @@ export default function RaceCard({ race }) {
 
   return (
     <div
-      className="rounded-glass border border-[var(--color-border)] relative overflow-hidden"
+      className="rounded-glass border border-[var(--color-border)] relative overflow-hidden flex flex-col gap-6 px-5 py-7 md:grid md:grid-cols-[1fr_auto] md:gap-12 md:items-center md:px-12 md:py-11"
       style={{
         background: 'rgba(6,7,10,0.65)',
         backdropFilter: 'blur(36px) saturate(200%)',
         WebkitBackdropFilter: 'blur(36px) saturate(200%)',
-        padding: '44px 48px',
-        display: 'grid',
-        gridTemplateColumns: '1fr auto',
-        gap: '48px',
-        alignItems: 'center',
         animation: 'fadeUp 0.7s 0.1s ease both',
       }}
     >
@@ -136,7 +131,7 @@ export default function RaceCard({ race }) {
       </div>
 
       {/* Countdown */}
-      <div className="flex flex-col items-end gap-3">
+      <div className="flex flex-col items-start md:items-end gap-3">
         {/* Session badge */}
         <div
           className="px-[13px] py-[4px] rounded-[100px] text-[10px] font-bold uppercase tracking-[1.8px] border"
@@ -155,7 +150,7 @@ export default function RaceCard({ race }) {
           <Fragment key={unit.label}>
             <div className="flex flex-col items-center gap-[7px]">
               <div
-                className="font-display font-black text-[56px] leading-none min-w-[74px] text-center"
+                className="font-display font-black text-[36px] md:text-[56px] leading-none min-w-[48px] md:min-w-[74px] text-center"
                 style={{
                   background: 'linear-gradient(160deg, #00C47D 0%, #D4A843 100%)',
                   WebkitBackgroundClip: 'text',
@@ -170,7 +165,7 @@ export default function RaceCard({ race }) {
               </div>
             </div>
             {i < 3 && (
-              <span className="font-display text-[44px] text-[var(--color-faint)] font-light pt-[6px]">
+              <span className="font-display text-[28px] md:text-[44px] text-[var(--color-faint)] font-light pt-[6px]">
                 :
               </span>
             )}

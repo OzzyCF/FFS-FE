@@ -61,10 +61,7 @@ export default async function CarrerasPage() {
       )}
 
       {/* Standings — drivers + constructors side by side */}
-      <div
-        className="mb-6"
-        style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '24px' }}
-      >
+      <div className="mb-6 grid grid-cols-1 md:grid-cols-2 gap-6">
         <DriverStandingsTable standings={driverStandings} />
         <ConstructorStandingsTable standings={constructorStandings} />
       </div>

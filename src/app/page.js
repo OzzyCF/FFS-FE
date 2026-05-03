@@ -104,8 +104,7 @@ export default async function Home() {
         {/* Cards grid */}
         <div
           id="eventos"
-          className="grid gap-[18px] px-7 pb-6 max-w-[1180px] mx-auto"
-          style={{ gridTemplateColumns: '1fr 1fr' }}
+          className="grid grid-cols-1 md:grid-cols-2 gap-[18px] px-7 pb-6 max-w-[1180px] mx-auto"
         >
           <EventCard
               event={nextEvent}

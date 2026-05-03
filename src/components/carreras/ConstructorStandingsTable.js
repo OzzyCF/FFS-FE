@@ -36,7 +36,7 @@ export default function ConstructorStandingsTable({ standings }) {
                 </span>
 
                 <div className="flex-1 min-w-0">
-                  <div className="font-[family:var(--font-stack)] font-bold text-[14px] uppercase leading-none truncate tracking-[0.5px]">
+                  <div className="font-[family:var(--font-stack)] font-bold text-[13px] md:text-[14px] uppercase leading-none tracking-[0.5px]">
                     {c.Constructor.name}
                   </div>
                 </div>

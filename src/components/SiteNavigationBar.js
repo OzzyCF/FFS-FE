@@ -3,7 +3,7 @@
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { signInWithPassword, signInWithOtp, signOut } from '@/lib/memberAuthActions'
-import { UserPlus } from 'lucide-react'
+import { UserPlus, Menu, X, LogOut, DoorOpen } from 'lucide-react'
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
 
@@ -15,8 +15,10 @@ export default function Nav({ nickname }) {
   const [modalStatus,    setModalStatus]    = useState('idle') // idle | loading | success
   const [modalError,     setModalError]     = useState(null)
   const [loginType,      setLoginType]      = useState(null)  // 'password' | 'otp'
+  const [menuOpen,       setMenuOpen]       = useState(false)
 
   async function handleSignOut() {
+    setMenuOpen(false)
     await signOut()
   }
 
@@ -66,34 +68,34 @@ export default function Nav({ nickname }) {
     }
   }
 
+  const glassStyle = {
+    background: 'rgba(6,7,10,0.72)',
+    backdropFilter: 'blur(44px) saturate(200%)',
+    WebkitBackdropFilter: 'blur(44px) saturate(200%)',
+  }
+
   return (
     <>
-      <nav className="sticky top-[14px] z-[100] px-7 max-w-[1180px] mx-auto mt-[14px]">
+      <nav className="sticky top-[14px] z-[100] px-5 md:px-7 max-w-[1180px] mx-auto mt-[14px] relative">
+
+        {/* ── DESKTOP NAV ── */}
         <div
-          className="flex items-center justify-between px-[22px] py-[13px] rounded-full border border-[var(--color-border)]"
-          style={{
-            background: 'rgba(6,7,10,0.72)',
-            backdropFilter: 'blur(44px) saturate(200%)',
-            WebkitBackdropFilter: 'blur(44px) saturate(200%)',
-          }}
+          className="hidden md:flex items-center justify-between px-[22px] py-[13px] rounded-full border border-[var(--color-border)]"
+          style={glassStyle}
         >
           {/* Logo */}
-          <img
-            src="/images/logo-ffs.svg"
-            alt="Formula Fan Sevilla"
-            className="h-8 w-auto"
-          />
+          <img src="/images/logo-ffs.svg" alt="Formula Fan Sevilla" className="h-8 w-auto" />
 
           {/* Nav links */}
           <ul className="flex items-center gap-0 list-none">
             {[
-              { label: 'Carreras', href: '/carreras' },
-              { label: 'Eventos',  href: '/eventos' },
+              { label: 'Carreras',  href: '/carreras' },
+              { label: 'Eventos',   href: '/eventos' },
               { label: 'Comunidad', href: '/comunidad' },
-            ].map(({ label, id, href }, i, arr) => (
+            ].map(({ label, href }, i, arr) => (
               <li key={label} className="flex items-center">
                 <button
-                  onClick={() => href ? router.push(href) : document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' })}
+                  onClick={() => router.push(href)}
                   className="text-white text-[13px] font-medium tracking-[0.8px] uppercase font-[family:var(--font-stack)] border-none bg-transparent cursor-pointer px-5 py-1"
                   onMouseEnter={e => {
                     e.currentTarget.style.transition = 'color 180ms, text-shadow 180ms'
@@ -144,12 +146,13 @@ export default function Nav({ nickname }) {
             <div className="flex items-center gap-4">
               <button
                 onClick={() => setModalOpen(true)}
-                className="text-[13px] font-medium cursor-pointer border-none bg-transparent transition-colors duration-[180ms] font-[family:var(--font-stack)] p-0"
+                className="flex items-center gap-[6px] text-[13px] font-medium cursor-pointer border-none bg-transparent transition-colors duration-[180ms] font-[family:var(--font-stack)] p-0"
                 style={{ color: 'rgba(255,255,255,0.38)' }}
                 onMouseEnter={e => e.currentTarget.style.color = 'rgba(255,255,255,0.7)'}
                 onMouseLeave={e => e.currentTarget.style.color = 'rgba(255,255,255,0.38)'}
               >
-                Ya soy miembro
+                <DoorOpen size={14} strokeWidth={2} />
+                Entrar
               </button>
               <button
                 onClick={() => document.getElementById('unete')?.scrollIntoView({ behavior: 'smooth' })}
@@ -162,9 +165,112 @@ export default function Nav({ nickname }) {
             </div>
           )}
         </div>
+
+        {/* ── MOBILE NAV ── */}
+        <div
+          className="flex md:hidden items-center px-[18px] py-[12px] rounded-full border border-[var(--color-border)]"
+          style={glassStyle}
+        >
+          {/* Logo — always left */}
+          <img src="/images/logo-ffs.svg" alt="Formula Fan Sevilla" className="h-7 w-auto flex-shrink-0" />
+
+          {/* Center area */}
+          {nickname ? (
+            /* Logged in: nickname centered */
+            <div className="flex-1 flex items-center justify-center gap-[7px]">
+              <div
+                className="w-[6px] h-[6px] rounded-full flex-shrink-0"
+                style={{ background: '#00C47D', boxShadow: '0 0 7px rgba(0,196,125,0.8)' }}
+              />
+              <span
+                className="text-[13px] font-semibold font-[family:var(--font-stack)] truncate max-w-[140px]"
+                style={{ color: 'rgba(255,255,255,0.88)' }}
+              >
+                {nickname}
+              </span>
+            </div>
+          ) : (
+            /* Not logged in: Entrar + Únete right-aligned before burger */
+            <div className="flex-1 flex items-center justify-end gap-2 pr-3">
+              <button
+                onClick={() => setModalOpen(true)}
+                className="flex items-center gap-[5px] text-[12px] font-medium cursor-pointer border-none bg-transparent transition-colors duration-[180ms] font-[family:var(--font-stack)]"
+                style={{ color: 'rgba(255,255,255,0.42)' }}
+                onMouseEnter={e => e.currentTarget.style.color = 'rgba(255,255,255,0.75)'}
+                onMouseLeave={e => e.currentTarget.style.color = 'rgba(255,255,255,0.42)'}
+              >
+                <DoorOpen size={13} strokeWidth={2} />
+                Entrar
+              </button>
+              <button
+                onClick={() => document.getElementById('unete')?.scrollIntoView({ behavior: 'smooth' })}
+                className="flex items-center gap-[6px] text-white border-none px-4 py-[7px] rounded-full font-semibold text-[12px] cursor-pointer tracking-[0.2px] font-[family:var(--font-stack)]"
+                style={{ background: 'linear-gradient(135deg, #00C47D 0%, #009B61 100%)' }}
+              >
+                Únete
+                <UserPlus size={12} strokeWidth={2.5} />
+              </button>
+            </div>
+          )}
+
+          {/* Burger — always right */}
+          <button
+            onClick={() => setMenuOpen(v => !v)}
+            className="flex-shrink-0 flex items-center justify-center w-8 h-8 border-none bg-transparent cursor-pointer text-white"
+          >
+            {menuOpen ? <X size={19} strokeWidth={2} /> : <Menu size={19} strokeWidth={2} />}
+          </button>
+        </div>
+
+        {/* ── MOBILE DROPDOWN ── */}
+        {menuOpen && (
+          <div
+            className="md:hidden absolute left-0 right-0 mt-2 rounded-2xl border border-[var(--color-border)] overflow-hidden"
+            style={{
+              background: 'rgba(6,7,10,0.97)',
+              backdropFilter: 'blur(44px) saturate(200%)',
+              WebkitBackdropFilter: 'blur(44px) saturate(200%)',
+            }}
+          >
+            {/* Nav links */}
+            {[
+              { label: 'Carreras',  href: '/carreras' },
+              { label: 'Eventos',   href: '/eventos' },
+              { label: 'Comunidad', href: '/comunidad' },
+            ].map(({ label, href }) => (
+              <button
+                key={label}
+                onClick={() => { setMenuOpen(false); router.push(href) }}
+                className="w-full text-left px-6 py-[17px] text-white text-[15px] font-semibold uppercase tracking-[1px] border-none bg-transparent cursor-pointer border-b border-[var(--color-border)] font-[family:var(--font-stack)]"
+                style={{ borderBottom: '1px solid rgba(255,255,255,0.06)' }}
+                onMouseEnter={e => e.currentTarget.style.background = 'rgba(255,255,255,0.03)'}
+                onMouseLeave={e => e.currentTarget.style.background = 'transparent'}
+              >
+                {label}
+              </button>
+            ))}
+
+            {/* Auth row — only shown when logged in */}
+            {nickname && (
+              <div className="px-6 py-4" style={{ borderTop: '1px solid rgba(255,255,255,0.06)' }}>
+                <button
+                  onClick={handleSignOut}
+                  className="flex items-center gap-[8px] border-none bg-transparent cursor-pointer transition-colors duration-150 font-[family:var(--font-stack)]"
+                  style={{ color: 'rgba(255,255,255,0.35)' }}
+                  onMouseEnter={e => e.currentTarget.style.color = 'rgba(255,255,255,0.7)'}
+                  onMouseLeave={e => e.currentTarget.style.color = 'rgba(255,255,255,0.35)'}
+                >
+                  <LogOut size={15} strokeWidth={2} />
+                  <span className="text-[13px] font-medium">Salir</span>
+                </button>
+              </div>
+            )}
+          </div>
+        )}
+
       </nav>
 
-      {/* Login modal */}
+      {/* ── LOGIN MODAL ── */}
       {modalOpen && (
         <div
           className="fixed inset-0 z-[200] flex items-center justify-center px-4"

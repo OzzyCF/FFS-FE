@@ -50,16 +50,11 @@ export default function CarrerasHeroSection({ nextRace }) {
 
   return (
     <div
-      className="rounded-glass border border-[var(--color-border)] relative overflow-hidden"
+      className="rounded-glass border border-[var(--color-border)] relative overflow-hidden flex flex-col gap-6 px-5 py-7 md:grid md:grid-cols-[1fr_auto] md:gap-12 md:items-center md:px-[52px] md:py-[48px]"
       style={{
         background: 'rgba(6,7,10,0.42)',
         backdropFilter: 'blur(36px) saturate(200%)',
         WebkitBackdropFilter: 'blur(36px) saturate(200%)',
-        padding: '48px 52px',
-        display: 'grid',
-        gridTemplateColumns: '1fr auto',
-        gap: '48px',
-        alignItems: 'center',
         animation: 'fadeUp 0.7s 0.1s ease both',
       }}
     >
@@ -104,7 +99,7 @@ export default function CarrerasHeroSection({ nextRace }) {
           <Fragment key={unit.label}>
             <div className="flex flex-col items-center gap-[7px]">
               <div
-                className="font-display font-black text-[56px] leading-none min-w-[74px] text-center"
+                className="font-display font-black text-[40px] md:text-[56px] leading-none min-w-[52px] md:min-w-[74px] text-center"
                 style={{
                   background: 'linear-gradient(160deg, #00C47D 0%, #D4A843 100%)',
                   WebkitBackgroundClip: 'text',
@@ -119,7 +114,7 @@ export default function CarrerasHeroSection({ nextRace }) {
               </div>
             </div>
             {i < 3 && (
-              <span className="font-display text-[44px] text-[var(--color-faint)] font-light pt-[6px]">:</span>
+              <span className="font-display text-[30px] md:text-[44px] text-[var(--color-faint)] font-light pt-[6px]">:</span>
             )}
           </Fragment>
         ))}

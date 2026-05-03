@@ -133,7 +133,7 @@ export default function WatchPartyEventCard({ event, goingCount = 0, maybeCount 
 
       {/* RSVP */}
       {isLoggedIn ? (
-        <div className="flex gap-[10px] mb-4">
+        <div className="flex flex-wrap gap-[10px] mb-4">
           <LiquidButton
             size="lg"
             tint={localRsvp === 'going' ? 'green' : undefined}

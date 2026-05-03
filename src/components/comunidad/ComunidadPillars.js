@@ -33,8 +33,8 @@ const pillars = [
 export default function ComunidadPillars() {
   return (
     <div
-      className="grid gap-4 mb-6"
-      style={{ gridTemplateColumns: 'repeat(3, 1fr)', animation: 'fadeUp 0.7s 0.18s ease both' }}
+      className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6"
+      style={{ animation: 'fadeUp 0.7s 0.18s ease both' }}
     >
       {pillars.map(({ icon: Icon, title, body, accent, borderColor, bg, barGradient }) => (
         <div

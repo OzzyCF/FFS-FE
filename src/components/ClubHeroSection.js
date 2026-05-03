@@ -90,7 +90,7 @@ export default function Hero({ raceDays = '—', memberCount = 0, eventCount = 0
 
       {/* ── Text content — centered, max-width, z-index 10 */}
       <div
-        className="flex items-center px-7 pt-[100px] pb-[80px] max-w-[1180px] mx-auto"
+        className="flex items-center px-7 pt-[80px] md:pt-[100px] pb-[80px] max-w-[1180px] mx-auto"
         style={{ minHeight: '88vh' }}
       >
       <div style={{ position: 'relative', zIndex: 10 }}>
@@ -179,7 +179,7 @@ export default function Hero({ raceDays = '—', memberCount = 0, eventCount = 0
 
         {/* Stats */}
         <div
-          className="flex gap-0"
+          className="flex flex-wrap gap-y-4"
           style={{ animation: 'fadeUp 0.7s 0.32s ease both' }}
         >
           {[
@@ -191,7 +191,7 @@ export default function Hero({ raceDays = '—', memberCount = 0, eventCount = 0
               key={stat.label}
               className="pr-9 mr-9 border-r border-[var(--color-border)] last:border-r-0 last:mr-0 last:pr-0"
             >
-              <div className="font-display font-extrabold text-[32px] leading-none mb-1">
+              <div className="font-display font-extrabold text-[26px] md:text-[32px] leading-none mb-1">
                 {stat.value}
               </div>
               <div className="text-[11px] text-[var(--color-faint)] uppercase tracking-[1.2px]">

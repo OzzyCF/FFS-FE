@@ -37,7 +37,7 @@ export default function DriverStandingsTable({ standings }) {
                 </span>
 
                 <div className="flex-1 min-w-0">
-                  <div className="font-[family:var(--font-stack)] font-bold text-[14px] uppercase leading-none mb-[3px] truncate tracking-[0.5px]">
+                  <div className="font-[family:var(--font-stack)] font-bold text-[13px] md:text-[14px] uppercase leading-none mb-[3px] tracking-[0.5px]">
                     {name}
                   </div>
                   <div className="text-[11px] text-[var(--color-faint)] uppercase tracking-[0.8px] truncate">

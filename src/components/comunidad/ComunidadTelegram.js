@@ -70,8 +70,8 @@ export default function ComunidadTelegram() {
         <img
           src="/images/t_me-formulafansevilla.jpg"
           alt="QR Code @formulafansevilla"
+          className="w-[260px] md:w-[180px]"
           style={{
-            width: 180,
             height: 'auto',
             borderRadius: 12,
             border: '1px solid rgba(255,255,255,0.1)',

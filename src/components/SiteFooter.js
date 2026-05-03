@@ -4,7 +4,7 @@ import { Coffee } from 'lucide-react'
 
 export default function Footer() {
   return (
-    <footer className="relative z-[2] border-t border-[var(--color-border)] px-7 py-7 max-w-[1180px] mx-auto flex justify-between items-center">
+    <footer className="relative z-[2] border-t border-[var(--color-border)] px-7 py-7 max-w-[1180px] mx-auto flex flex-col items-center gap-5 text-center md:flex-row md:justify-between md:text-left">
       <img
         src="/images/logo-ffs.svg"
         alt="Formula Fan Sevilla"

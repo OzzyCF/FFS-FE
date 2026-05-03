@@ -18,8 +18,8 @@ export default function EventosHeader() {
 
         {/* Page title — center */}
         <span
-          className="font-display font-black text-white uppercase leading-none"
-          style={{ fontSize: 52, letterSpacing: '0.52em' }}
+          className="font-display font-black text-white uppercase leading-none tracking-[0.2em] md:tracking-[0.52em]"
+          style={{ fontSize: 'clamp(22px, 8vw, 52px)' }}
         >
           EVENTOS
         </span>
