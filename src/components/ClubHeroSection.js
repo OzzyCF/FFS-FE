@@ -1,6 +1,6 @@
 'use client'
 
-export default function Hero({ raceDays = '—', memberCount = 0, eventCount = 0 }) {
+export default function Hero({ raceDays = '—', memberCount = 0, eventCount = 0, isLoggedIn = false }) {
   return (
     <section
       className="flex items-center px-7 pt-[100px] pb-[80px] max-w-[1180px] mx-auto relative z-[2]"
@@ -72,18 +72,20 @@ export default function Hero({ raceDays = '—', memberCount = 0, eventCount = 0
           className="flex gap-[14px] flex-wrap mb-[60px]"
           style={{ animation: 'fadeUp 0.7s 0.24s ease both' }}
         >
-          <button
-            onClick={() => document.getElementById('unete')?.scrollIntoView({ behavior: 'smooth' })}
-            className="text-white border-none px-[34px] py-[16px] rounded-btn font-semibold text-[15px] cursor-pointer tracking-[0.2px] transition-all duration-200 hover:-translate-y-[2px]"
-            style={{
-              background: 'linear-gradient(135deg, #00C47D 0%, #009B61 100%)',
-              boxShadow: '0 0 48px rgba(0,196,125,0.28)',
-            }}
-            onMouseEnter={e => e.currentTarget.style.boxShadow = '0 0 70px rgba(0,196,125,0.42)'}
-            onMouseLeave={e => e.currentTarget.style.boxShadow = '0 0 48px rgba(0,196,125,0.28)'}
-          >
-            Únete al club →
-          </button>
+          {!isLoggedIn && (
+            <button
+              onClick={() => document.getElementById('unete')?.scrollIntoView({ behavior: 'smooth' })}
+              className="text-white border-none px-[34px] py-[16px] rounded-btn font-semibold text-[15px] cursor-pointer tracking-[0.2px] transition-all duration-200 hover:-translate-y-[2px]"
+              style={{
+                background: 'linear-gradient(135deg, #00C47D 0%, #009B61 100%)',
+                boxShadow: '0 0 48px rgba(0,196,125,0.28)',
+              }}
+              onMouseEnter={e => e.currentTarget.style.boxShadow = '0 0 70px rgba(0,196,125,0.42)'}
+              onMouseLeave={e => e.currentTarget.style.boxShadow = '0 0 48px rgba(0,196,125,0.28)'}
+            >
+              Únete al club →
+            </button>
+          )}
           <button
             onClick={() => document.getElementById('eventos')?.scrollIntoView({ behavior: 'smooth' })}
             className="text-white px-[34px] py-[16px] rounded-btn font-medium text-[15px] cursor-pointer transition-all duration-200 border border-[var(--color-border-hi)] hover:bg-[rgba(255,255,255,0.11)] hover:border-[rgba(255,255,255,0.24)]"

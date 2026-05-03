@@ -91,14 +91,18 @@ export default function Nav({ nickname }) {
 
           {/* Nav links */}
           <ul className="flex gap-7 list-none">
-            {['Próxima Carrera', 'Eventos', 'Comunidad'].map((label) => (
+            {[
+              { label: 'Próxima Carrera', id: 'proxima-carrera' },
+              { label: 'Eventos',         id: 'eventos' },
+              { label: 'Comunidad',       id: 'unete' },
+            ].map(({ label, id }) => (
               <li key={label}>
-                <a
-                  href="#"
-                  className="text-[var(--color-dim)] no-underline text-[13px] font-medium tracking-[0.8px] uppercase transition-colors duration-[180ms] hover:text-white font-[family:var(--font-stack)]"
+                <button
+                  onClick={() => document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' })}
+                  className="text-[var(--color-dim)] text-[13px] font-medium tracking-[0.8px] uppercase transition-colors duration-[180ms] hover:text-white font-[family:var(--font-stack)] border-none bg-transparent cursor-pointer p-0"
                 >
                   {label}
-                </a>
+                </button>
               </li>
             ))}
           </ul>
