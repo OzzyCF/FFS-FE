@@ -89,7 +89,7 @@ export default function Nav({ nickname }) {
             {[
               { label: 'Carreras', href: '/carreras' },
               { label: 'Eventos',  href: '/eventos' },
-              { label: 'Comunidad', id: 'unete' },
+              { label: 'Comunidad', href: '/comunidad' },
             ].map(({ label, id, href }, i, arr) => (
               <li key={label} className="flex items-center">
                 <button

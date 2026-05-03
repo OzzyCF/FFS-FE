@@ -26,6 +26,7 @@ export function BeamsBackground({ className, intensity = 'strong' }) {
   const animationFrameRef = useRef(0)
   const MINIMUM_BEAMS = 20
   const opacityMap = { subtle: 0.7, medium: 0.85, strong: 1 }
+  const opacityValue = opacityMap[intensity]
 
   useEffect(() => {
     const canvas = canvasRef.current
@@ -67,7 +68,7 @@ export function BeamsBackground({ className, intensity = 'strong' }) {
       ctx.translate(beam.x, beam.y)
       ctx.rotate((beam.angle * Math.PI) / 180)
       const pulsingOpacity =
-        beam.opacity * (0.8 + Math.sin(beam.pulse) * 0.2) * opacityMap[intensity]
+        beam.opacity * (0.8 + Math.sin(beam.pulse) * 0.2) * opacityValue
       const gradient = ctx.createLinearGradient(0, 0, 0, beam.length)
       gradient.addColorStop(0, `hsla(${beam.hue}, 85%, 65%, 0)`)
       gradient.addColorStop(0.1, `hsla(${beam.hue}, 85%, 65%, ${pulsingOpacity * 0.5})`)
@@ -104,7 +105,7 @@ export function BeamsBackground({ className, intensity = 'strong' }) {
         cancelAnimationFrame(animationFrameRef.current)
       }
     }
-  }, [intensity])
+  }, [intensity, opacityValue])
 
   return (
     <div className={cn('relative w-full h-full', className)}
