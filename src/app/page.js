@@ -1,11 +1,11 @@
-import NavServer from '@/components/NavServer'
-import Hero from '@/components/Hero'
-import RaceCard from '@/components/RaceCard'
-import EventCard from '@/components/EventCard'
-import AuthAwareJoinSection from '@/components/AuthAwareJoinSection'
-import Footer from '@/components/Footer'
-import { getF1Data } from '@/lib/f1api'
-import { createClient } from '@/lib/supabase/server'
+import NavServer from '@/components/SiteNavigationBarWithAuth'
+import Hero from '@/components/ClubHeroSection'
+import RaceCard from '@/components/NextRaceCountdownCard'
+import EventCard from '@/components/WatchPartyEventCard'
+import AuthAwareJoinSection from '@/components/MemberSignupOrWelcomeSection'
+import Footer from '@/components/SiteFooter'
+import { getF1Data } from '@/lib/f1RaceDataService'
+import { createClient } from '@/lib/supabase/serverClient'
 
 export default async function Home() {
   const supabase = await createClient()
@@ -95,7 +95,7 @@ export default async function Home() {
         <div className="relative z-[2]">
           <div className="px-7 pb-6 max-w-[1180px] mx-auto">
             <div className="flex items-center gap-3 mb-6">
-              <span className="font-mono text-[var(--color-green)] text-[15px] font-bold leading-none">//</span>
+              <span className="font-mono text-[var(--color-green)] text-[15px] font-bold leading-none">{'//'}</span>
               <span className="font-display font-black text-white uppercase tracking-[4px] text-[13px]">Próximo evento</span>
             </div>
             <RaceCard race={f1Data.nextRace} />

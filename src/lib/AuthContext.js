@@ -1,7 +1,7 @@
 'use client'
 
 import { createContext, useContext, useState, useEffect } from 'react'
-import { createClient } from '@/lib/supabase/client'
+import { createClient } from '@/lib/supabase/browserClient'
 
 const AuthContext = createContext({ user: null, nickname: null, loading: true })
 

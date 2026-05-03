@@ -1,5 +1,5 @@
-import { createClient } from '@/lib/supabase/server'
-import Nav from './Nav'
+import { createClient } from '@/lib/supabase/serverClient'
+import Nav from './SiteNavigationBar'
 
 export default async function NavServer() {
   const supabase = await createClient()

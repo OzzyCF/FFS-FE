@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
-import { signInWithPassword, signInWithOtp, signOut } from '@/lib/auth'
+import { signInWithPassword, signInWithOtp, signOut } from '@/lib/memberAuthActions'
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
 

@@ -1,5 +1,5 @@
-import { createClient } from '@/lib/supabase/server'
-import JoinForm from '@/components/JoinForm'
+import { createClient } from '@/lib/supabase/serverClient'
+import JoinForm from '@/components/NewMemberSignupForm'
 
 export default async function AuthAwareJoinSection() {
   const supabase = await createClient()

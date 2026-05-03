@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { signUp } from '@/lib/auth'
+import { signUp } from '@/lib/memberAuthActions'
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
 const NICK_RE  = /^[a-zA-Z0-9_]+$/
